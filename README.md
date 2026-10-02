@@ -1,6 +1,6 @@
 # Benchmarking Large Language Model Prompt Optimization With Chess
 
-Local code and data accompanying the paper, supporting the independent-position
+[COMING SOON] Local code and data accompanying the paper, supporting the independent-position
 task:
 
 - choose the reference move in independent chess positions.
