@@ -1,0 +1,13 @@
+benchmark: independent_positions
+method: baseline
+test_path: data/puzzle_test.csv
+output_dir: runs/independent-positions-gpt4o-mini-baseline
+task_model:
+  name: openrouter/openai/gpt-4o-mini
+  temperature: 0
+  max_tokens: 1024
+  retries: 1
+  timeout_seconds: 30
+  extra: {drop_params: true, include_reasoning: false, reasoning_effort: none}
+seed: 42
+test_limit: 20

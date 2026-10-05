@@ -1,0 +1,13 @@
+benchmark: independent_positions
+method: baseline
+test_path: data/puzzle_test.csv
+output_dir: runs/independent-positions-muse-spark-baseline
+task_model:
+  name: openrouter/meta/muse-spark-1.2-contributor
+  temperature: 0
+  max_tokens: 16384
+  retries: 1
+  timeout_seconds: 600
+  extra: {drop_params: true, include_reasoning: true, reasoning_effort: low}
+seed: 42
+test_limit: 20

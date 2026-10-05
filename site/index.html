@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inference cost and held-out puzzle accuracy for automatically optimized chess prompts.">
+  <title>Benchmarking Prompt Optimization of Large Language Models With Chess — Results</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar wrap">
+    <a class="brand" href="#">imec <span>AI.labs · supplementary results</span></a>
+    <nav aria-label="Paper resources"><a href="https://arxiv.org/abs/2610.00416">Paper</a><a href="https://github.com/imec-ailabs/Automatic-Prompt-Optimization-with-Chess">Code and data</a></nav>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <div class="chess-motif" aria-hidden="true"><span>♜</span><span></span><span>♞</span><span></span><span></span><span>♙</span><span></span><span>♝</span><span>♔</span><span></span><span>♟</span><span></span><span></span><span>♖</span><span></span><span>♚</span></div>
+      <h1>Benchmarking Prompt Optimization of Large Language Models With Chess</h1>
+      <p class="authors">Timothée Lesort, Alejandra López de Aberasturi Gómez, Tristan Karch, Tom Veniat, Philippe Modard, Karl Tuyls, Ludovic Denoyer</p>
+      <p>Interactive supplementary results · <a href="https://arxiv.org/abs/2610.00416">arXiv:2610.00416</a> · 2026</p>
+    </section>
+
+    <section class="explorer" aria-labelledby="explorer-title">
+      <div class="section-heading"><h2 id="explorer-title">Inference cost and puzzle accuracy</h2><a class="download" href="results.json" download>Data (JSON) ↓</a></div>
+      <p class="section-intro">Mean inference cost on 559 held-out puzzles versus puzzle accuracy. Square-root cost scale; error bars: ±1 sample SD. Unchanged optimizer runs are excluded; baselines are retained.</p>
+      <div class="explorer-grid">
+        <div class="plot-panel">
+          <div class="filters-heading"><span class="eyebrow">FILTERS</span><button id="reset" class="quiet">Show all</button></div>
+          <fieldset class="filter-set"><legend>MODELS <span>color</span></legend><div id="model-filters" class="chips"></div></fieldset>
+          <fieldset class="filter-set"><legend>METHODS <span>shape · × baseline</span></legend><div id="method-filters" class="chips"></div></fieldset>
+          <div class="chart-tools" role="group" aria-label="Plot navigation">
+            <span id="navigation-help" title="Drag a rectangle in empty plot space to zoom">▧ Box zoom</span>
+            <button id="reset-view" class="quiet" title="Restore the full plot view">↺ Reset view</button>
+          </div>
+          <div id="chart" class="chart" aria-label="Interactive inference-cost plot" aria-describedby="navigation-help"></div>
+          <div class="chart-footer"><span><i class="line-key"></i> Empirical Pareto frontier</span><span>Hover to inspect · click to pin</span></div>
+          <p id="view-status" class="view-status" role="status"></p>
+          <p id="coverage" role="status" class="coverage">Loading paper results…</p>
+          <section id="missing-costs" class="missing-costs" aria-labelledby="missing-cost-title" hidden>
+            <h3 id="missing-cost-title">Inference cost unavailable</h3>
+            <p>These conditions have measured accuracy but incomplete inference costs and are excluded from the frontier.</p>
+            <div id="missing-cost-list"></div>
+          </section>
+        </div>
+        <aside class="artifact" aria-labelledby="artifact-title">
+          <div class="artifact-top"><span class="eyebrow">PROMPT ARTIFACT</span><button id="unpin" class="quiet" hidden>Unpin ×</button></div>
+          <h3 id="artifact-title" tabindex="-1">Inspect a point</h3>
+          <p id="artifact-subtitle">Hover or select a point to inspect its prompt.</p>
+          <p id="prompt-status" class="prompt-status" hidden></p>
+          <label id="seed-label" hidden>Artifact run<select id="artifact-seed"></select></label>
+          <dl id="artifact-metrics" class="metrics"></dl>
+          <p id="trace-note" class="trace-note"></p>
+          <div class="prompt-heading"><h4>Prompt <span>/ instruction and demonstrations</span></h4><button id="copy" class="quiet" disabled>Copy</button></div>
+          <pre id="prompt-text" tabindex="0">The instruction and demonstrations will appear here.</pre>
+          <details id="provenance"><summary>Artifact provenance</summary><p id="artifact-provenance"></p></details>
+        </aside>
+      </div>
+      <noscript><p>This explorer requires JavaScript. See the <a href="https://github.com/imec-ailabs/Automatic-Prompt-Optimization-with-Chess/tree/main/results/paper">source data</a> for results and prompts.</p></noscript>
+      <details class="table-section"><summary>Tabulated results</summary><div class="table-scroll"><table><caption>Retained-run means; SD unavailable when n = 1. Select a prompt to inspect its artifacts.</caption><thead><tr><th>Model</th><th>Method</th><th>Runs</th><th>Prompt status</th><th>Accuracy</th><th id="cost-heading">Inference cost (USD)</th><th>Artifact</th></tr></thead><tbody id="results-table"></tbody></table></div></details>
+    </section>
+
+    <section class="methodology" aria-labelledby="methods-title">
+      <div><h2 id="methods-title">Reading the figure</h2></div>
+      <div class="method-notes">
+        <details><summary>Inference cost and prompt length</summary><p>The x-axis is the recorded USD cost of running the selected prompt on the full held-out test set: 559 puzzles expanded into 1,439 solver positions per run. Each condition reports the mean of its retained evaluation costs. Optimization spending is excluded; no baseline cost is added.</p><p>Inference cost reflects input prompt length, output tokens, model-specific pricing and any recorded cache effects. It is not a direct measure of prompt length, especially across models. Evaluation ledgers take priority; otherwise complete per-position costs are summed. Missing costs remain unavailable. All six applicable Jev conditions have inference-cost observations.</p></details>
+        <details><summary>Aggregation and exclusions</summary><p>Each point represents one model–method condition. Unchanged optimizer runs are excluded before calculating both cost and accuracy means. Baselines remain. The resulting view contains 144 runs across 51 conditions, drawn from 165 source evaluations. Retained counts range from 1 to 3 and are shown in the inspector and table.</p><p>An optimizer run counts as updated when it changed the instruction or added demonstrations; the paper’s Table 3 averages all runs, including unchanged ones. All source runs remain in the downloadable data; selecting an artifact seed does not change the aggregate point.</p></details>
+        <details><summary>Accuracy and uncertainty</summary><p>A puzzle is correct only if every solver move matches the reference. Accuracy is the percentage of 559 puzzles solved. Vertical error bars show ±1 sample standard deviation across retained runs when n ≥ 2, not confidence intervals. No SD is estimated for n = 1.</p></details>
+        <details><summary>Scale, frontier and zoom</summary><p>Horizontal position is proportional to the square root of inference cost; tick labels show USD. Equal distances represent neither equal dollar differences nor equal ratios. A point is Pareto-optimal when no other filtered condition has equal or lower cost and equal or higher accuracy, with at least one strict improvement. Dominance uses point estimates, not uncertainty intervals.</p><p>Drag a rectangle in empty plot space to zoom; use Reset view to restore the full plot. Zoom changes only the viewport. The frontier continues to use all filtered conditions, including those outside the view. Connecting segments are visual guides, not measured learning curves. Changing filters resets the viewport.</p></details>
+        <details><summary>Artifacts and reproducibility</summary><p>The inspector displays the compiled instruction and demonstrations of each retained run, as the optimizer produced them; the DSPy adapter adds the fixed input and output formatting at call time. Best-iteration indices are shown for optimizers that record them (Jev BRS, COPRO, GEPA and MIPROv2).</p><p>The exporter verifies the source CSV hashes, reconstructs puzzle scores, and checks coverage against the release manifest. The JSON retains source IDs, cost provenance and all 141 optimized-run artifacts. Transfer, appendix baselines, regret and rollouts are separate cohorts and are not pooled here.</p></details>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap"><span>imec AI.labs · 2026</span><a href="https://arxiv.org/abs/2610.00416">arXiv:2610.00416</a><a href="https://github.com/imec-ailabs/Automatic-Prompt-Optimization-with-Chess">Source repository</a></footer>
+</body>
+</html>

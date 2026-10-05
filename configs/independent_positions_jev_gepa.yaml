@@ -1,0 +1,25 @@
+benchmark: independent_positions
+method: gepa
+train_path: data/puzzle_train.csv
+test_path: data/puzzle_test.csv
+output_dir: runs/independent-positions-jev-gepa
+task_model:
+  name: typesafe/jev-1.13-20260917
+  retries: 1
+  timeout_seconds: 30
+prompt_model:
+  name: openrouter/google/gemini-3.5-flash
+  temperature: 1
+  max_tokens: 8192
+  retries: 1
+  timeout_seconds: 30
+  extra: {drop_params: true}
+seed: 42
+train_limit: 20
+validation_size: 10
+test_limit: 20
+max_metric_calls: 50
+optimizer:
+  auto: null  # bounded example; the paper default is auto: heavy
+  reflection_minibatch_size: 5
+  num_threads: 1

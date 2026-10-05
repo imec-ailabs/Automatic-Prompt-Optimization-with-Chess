@@ -1,0 +1,13 @@
+Chess APO Benchmark
+Copyright 2026 imec
+
+This product includes software developed at imec (https://www.imec-int.com/).
+
+Puzzle data in data/ is derived from the Lichess puzzle database
+(https://database.lichess.org/#puzzles), released under CC0 1.0.
+
+This software depends on the python-chess library
+(https://github.com/niklasf/python-chess), licensed under the GNU General
+Public License v3.0 or later. python-chess is not bundled with this software;
+it is installed separately. Redistributing this software together with
+python-chess is subject to the terms of the GPL-3.0.

@@ -1,0 +1,11 @@
+# Decision endpoint: no generative temperature, max-output, or reasoning settings.
+benchmark: independent_positions
+method: baseline
+test_path: data/puzzle_test.csv
+output_dir: runs/independent-positions-jev-baseline
+task_model:
+  name: typesafe/jev-1.13-20260917
+  retries: 1
+  timeout_seconds: 30
+seed: 42
+test_limit: 20
