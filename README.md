@@ -7,7 +7,8 @@
 [![Paper](https://img.shields.io/badge/Paper-arXiv%3A2610.00416-b31b1b.svg)](https://arxiv.org/abs/2610.00416)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg)](pyproject.toml)
-[![Data](https://img.shields.io/badge/Data-Lichess%20CC0-lightgrey.svg)](https://database.lichess.org/#puzzles)
+[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-FFD21E.svg)](https://huggingface.co/datasets/imecai/chess-apo-bench)
+[![Results](https://img.shields.io/badge/Results-Interactive%20explorer-2ea44f.svg)](https://imec-ailabs.github.io/Automatic-Prompt-Optimization-with-Chess/)
 
 <p>
   <a href="#overview">Overview</a> ·
@@ -53,11 +54,11 @@ demonstrations; the model weights never change.
 
 ## Results
 
-**Interactive explorer:** the static site in [`site/`](site/) plots inference
-cost against puzzle accuracy for every model × optimizer, with the Pareto
-frontier and the compiled prompt of every run one click away. See
-[`docs/results-site.md`](docs/results-site.md) for local preview and GitHub Pages
-deployment.
+**[Interactive explorer](https://imec-ailabs.github.io/Automatic-Prompt-Optimization-with-Chess/):**
+plots inference cost against puzzle accuracy for every model × optimizer, with
+the Pareto frontier and the compiled prompt of every run one click away. The
+page is built from [`site/`](site/); see [`docs/results-site.md`](docs/results-site.md)
+for local preview and deployment.
 
 Four of eight models improve over their baseline (one-sided Welch test, p < 0.05,
 unadjusted). The largest gain is Gemini 3.5 Flash Lite, +7.57 points with SIMBA.
@@ -169,6 +170,9 @@ Runs stop at the first provider or configuration error. Set
 
 `data/puzzle_train.csv` and `data/puzzle_test.csv` hold the paper's 559 + 559
 puzzles from the [Lichess puzzle database](https://database.lichess.org/#puzzles) (CC0).
+The same files are published on Hugging Face as
+[`imecai/chess-apo-bench`](https://huggingface.co/datasets/imecai/chess-apo-bench)
+(`load_dataset("imecai/chess-apo-bench")`).
 
 The two files do not overlap in puzzle IDs or `(FEN, Moves)` lines and share
 the same composition, stratified by rating and solver length: 20 puzzles per
